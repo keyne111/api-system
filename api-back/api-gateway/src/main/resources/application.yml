@@ -1,0 +1,28 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: api-gateway
+  # 默认 dev 环境
+  profiles:
+    active: prod
+  cloud:
+    gateway:
+      default-filters:
+        - AddResponseHeader=source,xiaofan
+      routes:
+        - id: api_route
+          uri: http://localhost:8123
+          predicates:
+            - Path=/api/**
+logging:
+  level:
+    org:
+    springframework:
+      cloud:
+        gateway: trace
+dubbo:
+  application:
+    name: dubbo-springboot-demo-consumer
+  registry:
+    address: nacos://${xf.dubbo.address}?username=${xf.nacos.username}&password=${xf.nacos.password}
