@@ -1,0 +1,16 @@
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: interface-service
+  cloud:
+    nacos:
+      server-addr: ${xf.nacos.addr}
+  profiles:
+    active: dev
+api:
+  client:
+    access-key: xiaofan
+    secret-key: abcdefgh

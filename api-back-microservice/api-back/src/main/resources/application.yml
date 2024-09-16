@@ -1,0 +1,64 @@
+# 公共配置文件
+#
+#
+spring:
+  application:
+    name: api-back
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    # todo 取消注释开启分布式 session（须先配置 Redis）
+    store-type: none
+    # 30 天过期
+    timeout: 2592000
+  cloud:
+    nacos:
+      server-addr: ${xf.nacos.addr}
+  # 数据库配置
+  # todo 需替换配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${xf.db.host}:${xf.db.port}/${xf.db.database}?useSSL=false&allowPublicKeyRetrieval=true
+    username: ${xf.db.username}
+    password: ${xf.db.password}
+
+server:
+  address: 0.0.0.0
+  port: 7529
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+
+knife4j:
+  enable: true
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.xiaofan.apiback.controller
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+  registry:
+    address: nacos://${xf.dubbo.address}?username=${xf.nacos.username}&password=${xf.nacos.password}
