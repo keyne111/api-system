@@ -3,11 +3,11 @@ package com.xiaofan.apiback.service.impl;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.exception.BusinessException;
 
 import com.xiaofan.apiback.mapper.UserInterfaceInfoMapper;
 import com.xiaofan.apiback.service.UserInterfaceInfoService;
+import com.xiaofan.apicommon.common.ErrorCode;
+import com.xiaofan.apicommon.exception.BusinessException;
 import com.xiaofan.apicommon.domain.po.UserInterfaceInfo;
 import org.springframework.stereotype.Service;
 

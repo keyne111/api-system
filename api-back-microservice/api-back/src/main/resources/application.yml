@@ -14,12 +14,18 @@ spring:
   # session 配置
   session:
     # todo 取消注释开启分布式 session（须先配置 Redis）
-    store-type: none
+    store-type: redis
     # 30 天过期
     timeout: 2592000
+  redis:
+    host: localhost
+    port: 6379
+    password: root
+    database: 0
   cloud:
     nacos:
       server-addr: ${xf.nacos.addr}
+
   # 数据库配置
   # todo 需替换配置
   datasource:

@@ -1,30 +1,30 @@
 package com.xiaofan.apiback.service.impl;
 
-import static com.xiaofan.apiback.constant.UserConstant.USER_LOGIN_STATE;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+
+import com.xiaofan.apicommon.common.ErrorCode;
+import com.xiaofan.apicommon.constant.CommonConstant;
 import com.xiaofan.apicommon.domain.po.User;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.constant.CommonConstant;
-import com.xiaofan.apiback.exception.BusinessException;
 import com.xiaofan.apiback.mapper.UserMapper;
 import com.xiaofan.apiback.model.dto.user.UserQueryRequest;
 
-import com.xiaofan.apiback.model.enums.UserRoleEnum;
 import com.xiaofan.apiback.model.vo.LoginUserVO;
 import com.xiaofan.apiback.model.vo.UserVO;
 import com.xiaofan.apiback.service.UserService;
-import com.xiaofan.apiback.utils.SqlUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xiaofan.apicommon.enums.UserRoleEnum;
+import com.xiaofan.apicommon.exception.BusinessException;
+import com.xiaofan.apicommon.utils.SqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -42,6 +42,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * 盐值，混淆密码
      */
     public static final String SALT = "xiaofan";
+
+    private static final String USER_LOGIN_STATE="user_login";
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {

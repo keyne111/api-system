@@ -13,10 +13,18 @@ spring:
       default-filters:
         - AddResponseHeader=source,xiaofan
       routes:
-        - id: api_route
-          uri: http://localhost:8123
+        - id: user-service
+          uri: lb://user-service
           predicates:
-            - Path=/api/**
+            - Path=/api/user/**
+        - id: interfaceInfo-service
+          uri: lb://interfaceInfo-service
+          predicates:
+            - Path=/api/interfaceInfo/**
+        - id: interface-service
+          uri: lb://interface-service
+          predicates:
+            - Path=/api/name/**
 logging:
   level:
     org:
@@ -28,3 +36,15 @@ dubbo:
     name: dubbo-springboot-demo-consumer
   registry:
     address: nacos://${xf.dubbo.address}?username=${xf.nacos.username}&password=${xf.nacos.password}
+knife4j:
+  gateway:
+    enabled: true
+    # 指定服务发现的模式聚合微服务文档
+    strategy: discover
+    discover:
+      enabled: true
+      # 指定版本号(Swagger2|OpenAPI3)
+      version : swagger2
+      # 需要排除的微服务(eg:网关服务)
+      excluded-services:
+        - api-gateway

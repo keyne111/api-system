@@ -1,11 +1,11 @@
 package com.xiaofan.apiback.service.impl.inner;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.xiaofan.apicommon.common.ErrorCode;
 import com.xiaofan.apicommon.domain.po.User;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.exception.BusinessException;
 import com.xiaofan.apiback.mapper.UserMapper;
-import com.xiaofan.apicommon.domain.service.InnerUserService;
+import com.xiaofan.apicommon.exception.BusinessException;
+import com.xiaofan.apicommon.service.InnerUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 

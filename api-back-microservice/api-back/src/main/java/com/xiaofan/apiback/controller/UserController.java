@@ -1,15 +1,16 @@
 package com.xiaofan.apiback.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaofan.apicommon.common.BaseResponse;
+import com.xiaofan.apicommon.common.ErrorCode;
+import com.xiaofan.apicommon.common.ResultUtils;
+import com.xiaofan.apicommon.constant.UserConstant;
+import com.xiaofan.apicommon.exception.BusinessException;
+import com.xiaofan.apicommon.exception.ThrowUtils;
 import com.xiaofan.apicommon.domain.po.User;
 import com.xiaofan.apiback.annotation.AuthCheck;
-import com.xiaofan.apiback.common.BaseResponse;
 import com.xiaofan.apiback.common.DeleteRequest;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.common.ResultUtils;
-import com.xiaofan.apiback.constant.UserConstant;
-import com.xiaofan.apiback.exception.BusinessException;
-import com.xiaofan.apiback.exception.ThrowUtils;
+
 import com.xiaofan.apiback.model.dto.user.UserAddRequest;
 import com.xiaofan.apiback.model.dto.user.UserLoginRequest;
 import com.xiaofan.apiback.model.dto.user.UserQueryRequest;
@@ -24,7 +25,6 @@ import com.xiaofan.apiback.service.UserService;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.xiaofan.apiback.service.impl.UserServiceImpl.SALT;

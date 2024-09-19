@@ -1,15 +1,15 @@
 package com.xiaofan.apiback.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.github.xiaoymin.knife4j.core.util.CollectionUtils;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.xiaofan.apiback.annotation.AuthCheck;
-import com.xiaofan.apiback.common.BaseResponse;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.common.ResultUtils;
-import com.xiaofan.apiback.exception.BusinessException;
 import com.xiaofan.apiback.mapper.UserInterfaceInfoMapper;
 import com.xiaofan.apiback.model.vo.InterfaceInfoVO;
 import com.xiaofan.apiback.service.InterfaceInfoService;
+import com.xiaofan.apicommon.common.BaseResponse;
+import com.xiaofan.apicommon.common.ErrorCode;
+import com.xiaofan.apicommon.common.ResultUtils;
+import com.xiaofan.apicommon.exception.BusinessException;
 import com.xiaofan.apicommon.domain.po.InterfaceInfo;
 import com.xiaofan.apicommon.domain.po.UserInterfaceInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 /**
  * 分析控制器
  *
- * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
- * @from <a href="https://yupi.icu">编程导航知识星球</a>
+ * @author <a href=""></a>
+ * @from <a href=""></a>
  */
 @RestController
 @RequestMapping("/analysis")

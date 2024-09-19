@@ -2,13 +2,13 @@ package com.xiaofan.apiback.aop;
 
 import com.xiaofan.apiback.annotation.AuthCheck;
 import com.xiaofan.apiback.service.UserService;
+
+import com.xiaofan.apicommon.common.ErrorCode;
 import com.xiaofan.apicommon.domain.po.User;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.exception.BusinessException;
-
-import com.xiaofan.apiback.model.enums.UserRoleEnum;
 
 
+import com.xiaofan.apicommon.enums.UserRoleEnum;
+import com.xiaofan.apicommon.exception.BusinessException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -45,6 +45,7 @@ public class AuthInterceptor {
         // 当前登录用户
         User loginUser = userService.getLoginUser(request);
         UserRoleEnum mustRoleEnum = UserRoleEnum.getEnumByValue(mustRole);
+
         // 不需要权限，放行
         if (mustRoleEnum == null) {
             return joinPoint.proceed();

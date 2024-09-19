@@ -1,6 +1,6 @@
 package com.xiaofan.apiback.common;
 
-import com.xiaofan.apiback.constant.CommonConstant;
+import com.xiaofan.apicommon.constant.CommonConstant;
 import lombok.Data;
 
 /**

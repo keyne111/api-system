@@ -4,19 +4,20 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.xiaofan.apicommon.common.ErrorCode;
+import com.xiaofan.apicommon.constant.CommonConstant;
+import com.xiaofan.apicommon.exception.BusinessException;
+import com.xiaofan.apicommon.exception.ThrowUtils;
 import com.xiaofan.apicommon.domain.po.InterfaceInfo;
 import com.xiaofan.apicommon.domain.po.User;
-import com.xiaofan.apiback.common.ErrorCode;
-import com.xiaofan.apiback.constant.CommonConstant;
-import com.xiaofan.apiback.exception.BusinessException;
-import com.xiaofan.apiback.exception.ThrowUtils;
+
 import com.xiaofan.apiback.mapper.InterfaceInfoMapper;
 import com.xiaofan.apiback.model.dto.interfaceinfo.InterfaceInfoQueryRequest;
 import com.xiaofan.apiback.model.vo.InterfaceInfoVO;
 import com.xiaofan.apiback.model.vo.UserVO;
 import com.xiaofan.apiback.service.InterfaceInfoService;
 import com.xiaofan.apiback.service.UserService;
-import com.xiaofan.apiback.utils.SqlUtils;
+import com.xiaofan.apicommon.utils.SqlUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -155,6 +156,7 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
         }
         // 1. 关联查询用户信息
         Set<Long> userIdSet = interfaceInfoList.stream().map(InterfaceInfo::getUserId).collect(Collectors.toSet());
+
         Map<Long, List<User>> userIdUserListMap = userService.listByIds(userIdSet).stream()
                 .collect(Collectors.groupingBy(User::getId));
 
