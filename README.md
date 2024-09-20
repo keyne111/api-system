@@ -17,29 +17,31 @@
 
 
 - 登录页
+![image](https://github.com/user-attachments/assets/283e0603-f801-4d3e-a034-927ec3fd423d)
 
-![image-20240920170616158](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920170616158.png)
+
 
 
 - 首页
+![image](https://github.com/user-attachments/assets/1d1b705e-d5f8-41c1-bb91-5411849e71a4)
 
-![image-20240920165515005](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920165515005.png)
+
+
 
 - 接口详情
+![image](https://github.com/user-attachments/assets/8571efce-b825-4aae-85b2-91b23fb8ace4)
 
-  ![image-20240920165540019](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920165540019.png)
+ 
 
-  
 
 
 - 接口管理
+![image](https://github.com/user-attachments/assets/0e6dbe72-9ebf-4a8c-a9cc-a6711c17e4f8)
 
-![image-20240920165558048](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920165558048.png)
+
 
 - 接口分析
-
-![image-20240920165615415](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920165615415.png)
-
+![image](https://github.com/user-attachments/assets/7dbe86d2-794a-41bd-949a-7c7b0d61833f)
 
 
 
@@ -49,7 +51,7 @@
 
 ## 系统架构
 
-![image-20240920172356336](C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20240920172356336.png)
+![image](https://github.com/user-attachments/assets/65fd4955-2008-448a-be9d-7ee1c2b216ae)
 
 
 
