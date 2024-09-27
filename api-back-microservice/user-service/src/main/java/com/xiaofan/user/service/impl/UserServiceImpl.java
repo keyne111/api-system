@@ -22,12 +22,14 @@ import com.xiaofan.user.mapper.UserMapper;
 import com.xiaofan.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +57,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Resource
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -154,8 +159,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 msg.put("phone","18818348297");
                 msg.put("code","123456");
                 // rabbitTemplate.convertAndSend("ali.sms.exchange","ali.verify.code",msg);
-                // @TODO 下面这一句要打开
-                // rabbitTemplate.convertAndSend("simple.queue",msg);
+                rabbitTemplate.convertAndSend("simple.queue",msg);
                 redisUtil.del(key);
                 redisUtil.del("user:" + userAccount + ":info");
 
@@ -182,7 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //     log.info("user login failed, userAccount cannot match userPassword");
         //     throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在或密码错误");
         // }
-        // // 3. 记录用户的登录态
+        // 3. 记录用户的登录态
         request.getSession().setAttribute(USER_LOGIN_STATE, user);
         return this.getLoginUserVO(user);
     }
