@@ -19,12 +19,15 @@
 - 登录页
 ![image](https://github.com/user-attachments/assets/283e0603-f801-4d3e-a034-927ec3fd423d)
 
+用户密码错误超过5次
+![image](https://github.com/user-attachments/assets/5427d658-052c-48f4-824b-87b2da8c7ef3)
 
+发送短信服务到用户注册时的手机号
+![image](https://github.com/user-attachments/assets/c770c730-b07c-4b94-8aed-be2cd527f14e)
 
 
 - 首页
 ![image](https://github.com/user-attachments/assets/1d1b705e-d5f8-41c1-bb91-5411849e71a4)
-
 
 
 
