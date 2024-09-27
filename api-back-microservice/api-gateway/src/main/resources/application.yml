@@ -11,7 +11,7 @@ spring:
       server-addr: ${xf.nacos.addr}
     gateway:
       default-filters:
-        - AddResponseHeader=source,xiaofan
+        - AddRequestHeader=source,xiaofan
       routes:
         - id: user-service
           uri: lb://user-service

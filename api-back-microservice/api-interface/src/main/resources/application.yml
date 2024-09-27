@@ -1,7 +1,7 @@
 server:
   port: 8123
   servlet:
-    context-path: /api
+    context-path: /api/name
 spring:
   application:
     name: interface-service
@@ -14,3 +14,14 @@ api:
   client:
     access-key: xiaofan
     secret-key: abcdefgh
+knife4j:
+  enable:
+    true
+  openapi:
+    title: "调用接口信息管理接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.xiaofan.apiinterface.controller

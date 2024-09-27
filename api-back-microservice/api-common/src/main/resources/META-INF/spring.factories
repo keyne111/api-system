@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.xiaofan.apicommon.config.MyBatisPlusConfig,\
-  com.xiaofan.apicommon.exception.GlobalExceptionHandler
+  com.xiaofan.apicommon.exception.GlobalExceptionHandler,\
+  com.xiaofan.apicommon.utils.RedisUtil

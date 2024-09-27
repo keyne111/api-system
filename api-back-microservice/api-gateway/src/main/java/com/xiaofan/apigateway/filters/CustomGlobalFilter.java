@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
 @Slf4j
 @Component
 public class CustomGlobalFilter implements GlobalFilter, Ordered {
@@ -46,7 +45,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
     @DubboReference
     private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
 
-    private final AntPathMatcher antPathMatcher=new AntPathMatcher();
+    private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     private static final List<String> IP_WHITE_LIST = Arrays.asList("127.0.0.1");
 
@@ -68,7 +67,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
         }
 
 
-        if(antPathMatcher.match("/**/name/**",path)){
+        if (antPathMatcher.match("/**/name/**", path) && !antPathMatcher.match("/**/name/v2/**", path)) {
             path = INTERFACE_HOST + request.getPath().value();
             String method = request.getMethod().toString();
             log.info("请求唯一标识：" + request.getId());
@@ -94,6 +93,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             // todo 实际情况应该是去数据库中查是否已分配给用户
             User invokeUser = null;
             try {
+                //根据ak查出用户
                 invokeUser = innerUserService.getInvokeUser(accessKey);
             } catch (Exception e) {
                 log.error("getInvokeUser error", e);
@@ -113,9 +113,9 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             if ((currentTime - Long.parseLong(timestamp)) >= FIVE_MINUTES) {
                 return handleNoAuth(response);
             }
-            // 实际情况中是从数据库中查出 secretKey
+            // 刚才根据ak有用户了，这里直接拿sk就可以
             String secretKey = invokeUser.getSecretKey();
-            String serverSign = SignUtil.genSign(accessKey,body, secretKey);
+            String serverSign = SignUtil.genSign(accessKey, body, secretKey);
             if (sign == null || !sign.equals(serverSign)) {
                 return handleNoAuth(response);
             }
@@ -131,7 +131,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
             }
             // todo 是否还有调用次数
             boolean haveInvoke = innerUserInterfaceInfoService.isHaveInvoke(invokeUser.getId());
-            if(!haveInvoke){
+            if (!haveInvoke) {
                 return handleNoAuth(response);
             }
             // 5. 请求转发，调用模拟接口 + 响应日志
@@ -147,6 +147,7 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
 
     /**
      * 处理响应
+     *
      * @param exchange
      * @param chain
      * @param interfaceInfoId
@@ -173,25 +174,27 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered {
                             // 拼接字符串
                             return super.writeWith(
                                     fluxBody.map(dataBuffer -> {
-                                        // 7. 调用成功，接口调用次数 + 1 invokeCount
-                                        try {
-                                            innerUserInterfaceInfoService.invokeCount(interfaceInfoId, userId);
-                                        } catch (Exception e) {
-                                            log.error("invokeCount error", e);
-                                        }
-                                        byte[] content = new byte[dataBuffer.readableByteCount()];
-                                        dataBuffer.read(content);
-                                        DataBufferUtils.release(dataBuffer);//释放掉内存
-                                        // 构建日志
-                                        StringBuilder sb2 = new StringBuilder(200);
-                                        List<Object> rspArgs = new ArrayList<>();
-                                        rspArgs.add(originalResponse.getStatusCode());
-                                        String data = new String(content, StandardCharsets.UTF_8); //data
-                                        sb2.append(data);
-                                        // 打印日志
-                                        log.info("响应结果：" + data);
-                                        return bufferFactory.wrap(content);
-                                    }));
+                                                // 7. 调用成功，接口调用次数 + 1 invokeCount
+                                                try {
+                                                    innerUserInterfaceInfoService.invokeCount(interfaceInfoId, userId);
+                                                } catch (Exception e) {
+                                                    log.error("invokeCount error", e);
+                                                }
+                                                byte[] content = new byte[dataBuffer.readableByteCount()];
+                                                dataBuffer.read(content);
+                                                DataBufferUtils.release(dataBuffer);//释放掉内存
+                                                // 构建日志
+                                                StringBuilder sb2 = new StringBuilder(200);
+                                                List<Object> rspArgs = new ArrayList<>();
+                                                rspArgs.add(originalResponse.getStatusCode());
+                                                String data = new String(content, StandardCharsets.UTF_8); //data
+                                                sb2.append(data);
+                                                // 打印日志
+                                                log.info("响应结果：" + data);
+                                                return bufferFactory.wrap(content);
+                                            }
+                                    )
+                            );
                         } else {
                             // 8. 调用失败，返回一个规范的错误码
                             log.error("<--- {} 响应code异常", getStatusCode());

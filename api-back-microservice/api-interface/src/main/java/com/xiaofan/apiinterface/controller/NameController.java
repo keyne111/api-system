@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 
 @RestController
-@RequestMapping("/name")
+@RequestMapping("/")
 public class NameController {
 
     @GetMapping("/get")
@@ -22,7 +22,7 @@ public class NameController {
     }
 
     @PostMapping("/user")
-    public String getUserNameByPost(@RequestBody User user, HttpServletRequest request){
+    public String getUserNameByPost(@RequestBody User user, HttpServletRequest request,@RequestHeader(value = "source",required = true)String source ){
         // String accessKey = request.getHeader("accessKey");
         // String body = request.getHeader("body");
         // String sign = request.getHeader("sign");
@@ -48,7 +48,7 @@ public class NameController {
         //     throw new RuntimeException("无权限");
         // }
 
-
+        System.out.println("source是:"+source);
         return "POST 你的名字是:"+user.getUserName();
     }
     public static boolean isValidTimestamp(String timestampStr) {
